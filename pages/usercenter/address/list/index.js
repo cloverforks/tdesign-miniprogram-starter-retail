@@ -21,7 +21,6 @@ Page({
     const { selectMode = '', isOrderSure = '', id = '' } = query;
     this.setData({
       isOrderSure: !!isOrderSure,
-      extraSpace: !!isOrderSure,
       id,
     });
     this.selectMode = !!selectMode;
@@ -35,16 +34,6 @@ Page({
     if (this.selectMode && !this.hasSelect) {
       rejectAddress();
     }
-  },
-  addAddress() {
-    wx.navigateTo({
-      url: '/pages/usercenter/address/edit/index',
-    });
-  },
-  onEdit(e) {
-    wx.navigateTo({
-      url: `/pages/usercenter/address/edit/index?id=${e.detail.id}`,
-    });
   },
   getAddressList() {
     const { id } = this.data;
@@ -91,7 +80,7 @@ Page({
       },
     });
   },
-  confirmDelteHandle({ detail }) {
+  confirmDeleteHandle({ detail }) {
     const { id } = detail || {};
     if (id !== undefined) {
       this.setData({ deleteID: id, showDeleteConfirm: true });

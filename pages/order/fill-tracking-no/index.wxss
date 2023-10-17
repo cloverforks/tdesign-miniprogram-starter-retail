@@ -27,7 +27,6 @@
   padding: 0;
 }
 
-
 .fill-tracking-no__form .t-cell__value::after {
   border: none !important;
 }
@@ -76,10 +75,6 @@
   color: #fff;
 }
 
-.fill-tracking-no__button-bar .t-class-confirm {
-  color: #fa4126;
-}
-
 .t-cell-title-width {
   width: 160rpx;
   flex: none !important;
@@ -92,4 +87,17 @@
 }
 .t-textarea-wrapper {
   box-sizing: border-box;
+}
+
+.fill-tracking-no__form .t-input__wrapper {
+  margin: 0 !important;
+}
+
+.fill-tracking-no__form {
+  --td-input-vertical-padding: 0;
+}
+
+.t-button {
+  --td-button-default-color: #aeb3b7;
+  --td-button-primary-text-color: #fa4126;
 }

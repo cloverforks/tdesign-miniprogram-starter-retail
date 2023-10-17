@@ -27,11 +27,13 @@
 			  title="微信地址导入"
 			  isOrderSure="{{isOrderSure}}"
 			  isDisabledBtn="{{addressList.length >= 20}}"
-			  navigator="{{true}}"
+			  navigateUrl="/pages/usercenter/address/edit/index"
+				navigateEvent="onWeixinAddressPassed"	
 			  t-class="location-btn"
 			  isCustomStyle="{{true}}"
+				bind:navigate="waitForNewAddress"
 			/>
-			<view class="address-btn {{addressList.length >= 20 ? 'btn-default':''}}" bind:tap="addAddress">
+			<view class="address-btn {{addressList.length >= 20 ? 'btn-default':''}}" bind:tap="createHandle">
 				<t-icon
 				  name="add"
 				  size="48rpx"
@@ -45,4 +47,3 @@
 	</view>
 </view>
 <t-toast id="t-toast" />
-

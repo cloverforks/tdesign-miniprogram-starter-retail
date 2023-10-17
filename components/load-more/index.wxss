@@ -9,6 +9,8 @@
 .load-more .t-class-loading {
   display: flex;
   justify-content: center;
+
+  --td-loading-color: #fa4126;
 }
 
 .load-more .t-class-loading-text {
@@ -21,4 +23,13 @@
 }
 .load-more .t-class-indicator {
   color: #b9b9b9 !important;
+}
+
+.load-more__error {
+  margin: auto;
+}
+
+.load-more__refresh-btn {
+  margin-left: 16rpx;
+  color: #fa4126;
 }

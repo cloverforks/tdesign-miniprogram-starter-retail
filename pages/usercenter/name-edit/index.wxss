@@ -14,13 +14,5 @@ page view {
   margin-bottom: 200rpx;
 }
 .name-edit .name-edit__wrapper {
-  width: 100%;
-  padding: 0 32rpx;
-}
-.name-edit .name-edit__btn {
-  height: 88rpx;
-  width: 100%;
-  background: #fa4126;
-  color: #fff;
-  border-radius: 48rpx;
+  margin: 0 32rpx;
 }

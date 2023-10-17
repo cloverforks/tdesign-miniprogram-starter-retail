@@ -10,8 +10,11 @@ Component({
     title: {
       type: String,
     },
-    navigator: {
-      type: Boolean,
+    navigateUrl: {
+      type: String,
+    },
+    navigateEvent: {
+      type: String,
     },
     isCustomStyle: {
       type: Boolean,
@@ -32,14 +35,7 @@ Component({
       getPermission({ code: 'scope.address', name: '通讯地址' }).then(() => {
         wx.chooseAddress({
           success: async (options) => {
-            const {
-              provinceName,
-              cityName,
-              countryName,
-              detailInfo,
-              userName,
-              telNumber,
-            } = options;
+            const { provinceName, cityName, countyName, detailInfo, userName, telNumber } = options;
 
             if (!phoneRegCheck(telNumber)) {
               Toast({
@@ -58,16 +54,13 @@ Component({
               detailAddress: detailInfo,
               provinceName: provinceName,
               cityName: cityName,
-              districtName: countryName,
+              districtName: countyName,
               isDefault: false,
               isOrderSure: this.properties.isOrderSure,
             };
 
-            addressParse(provinceName, cityName, countryName);
-
             try {
-              const { provinceCode, cityCode, districtCode } =
-                await addressParse(provinceName, cityName, countryName);
+              const { provinceCode, cityCode, districtCode } = await addressParse(provinceName, cityName, countyName);
 
               const params = Object.assign(target, {
                 provinceCode,
@@ -76,8 +69,15 @@ Component({
               });
               if (this.properties.isOrderSure) {
                 this.onHandleSubmit(params);
-              } else if (this.properties.navigator) {
-                Navigator.gotoPage('/address-detail', params);
+              } else if (this.properties.navigateUrl != '') {
+                const { navigateEvent } = this.properties;
+                this.triggerEvent('navigate');
+                wx.navigateTo({
+                  url: this.properties.navigateUrl,
+                  success: function (res) {
+                    res.eventChannel.emit(navigateEvent, params);
+                  },
+                });
               } else {
                 this.triggerEvent('change', params);
               }
@@ -109,9 +109,7 @@ Component({
 
     async onHandleSubmit(params) {
       try {
-        const orderPageDeltaNum = this.findPage(
-          'pages/order/order-confirm/index',
-        );
+        const orderPageDeltaNum = this.findPage('pages/order/order-confirm/index');
         if (orderPageDeltaNum > -1) {
           wx.navigateBack({ delta: 1 });
           resolveAddress(params);
